@@ -67,4 +67,9 @@ public class ExampleApplication {
          beanC.helloC("5");
          return "ok";
     }
+
+    @RequestMapping(path = "/test", method = RequestMethod.GET)
+    public String test(){
+        return "test";
+    }
 }

@@ -2,6 +2,8 @@ package com.good.xuchao.example;
 
 import org.junit.Test;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -25,7 +27,7 @@ public class TC1 {
 //            System.out.println(key+"\t"+value);
 //        });
         System.out.println("start--");
-        Thread thread = new Thread(){
+        Thread thread = new Thread() {
             @Override
             public void run() {
                 try {
@@ -71,7 +73,7 @@ public class TC1 {
     }
 
     @Test
-    public void test1(){
+    public void test1() {
         String tables = "chevrolet_asset_right_chglog\n" +
                 "chevrolet_asset_right_chgrecord\n" +
                 "chevrolet_asset_right_relation\n" +
@@ -89,11 +91,11 @@ public class TC1 {
                 "chevrolet_vin_whitelist\n";
 
         String[] split = tables.split("\n");
-        for (String table:split){
-            System.out.println("ALTER TABLE "+table+"\n" +
+        for (String table : split) {
+            System.out.println("ALTER TABLE " + table + "\n" +
                     "  modify COLUMN gmt_create datetime default CURRENT_TIMESTAMP not null\n" +
                     "  comment '创建时间';\n" +
-                    "ALTER TABLE "+table+"\n" +
+                    "ALTER TABLE " + table + "\n" +
                     "  modify COLUMN gmt_modified datetime default CURRENT_TIMESTAMP not null\n" +
                     "  on update CURRENT_TIMESTAMP\n" +
                     "  comment '修改时间';");
@@ -102,14 +104,14 @@ public class TC1 {
     }
 
     @Test
-    public void test3(){
-      String str = "杭州一骑轻尘信息技术有限公司-后台-产品技术部-管尚-监管";
-        String substring = str.substring(str.indexOf("-")+1, str.length());
+    public void test3() {
+        String str = "杭州一骑轻尘信息技术有限公司-后台-产品技术部-管尚-监管";
+        String substring = str.substring(str.indexOf("-") + 1, str.length());
         System.out.println(substring);
     }
 
     @Test
-    public void test4(){
+    public void test4() {
         System.out.println("2018-08-31".getBytes().length);
         System.out.println("差旅费差旅费差旅费费".getBytes().length);
         System.out.println("123123".getBytes().length);
@@ -117,7 +119,11 @@ public class TC1 {
     }
 
     @Test
-    public void test5(){
-        System.out.println(new Date(1540224000000L));
+    public void test5() {
+        // 如果入库时间 和 放款时间 在同一天 同库交易的浮动周期为0 要让 arrivalTime 小于 loanStartTime
+        LocalDateTime arrivalDateTime = LocalDateTime.ofEpochSecond(1542887562000L / 1000, 0, ZoneOffset.ofHours(8));
+        LocalDateTime loanStartDateTime = LocalDateTime.ofEpochSecond(1542737562000L / 1000, 0, ZoneOffset.ofHours(8));
+        if (arrivalDateTime.toLocalDate().toEpochDay() == loanStartDateTime.toLocalDate().toEpochDay()) {
+            System.out.println(1);        }
     }
 }

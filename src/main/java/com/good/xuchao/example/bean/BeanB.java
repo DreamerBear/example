@@ -1,6 +1,9 @@
 package com.good.xuchao.example.bean;
 
 import com.good.xuchao.example.aspect.FacadeAdvice;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,6 +19,8 @@ import javax.annotation.Resource;
  */
 @FacadeAdvice
 @Service
+@Setter
+@Getter
 public class BeanB {
     @Resource
     private BeanA beanA;
